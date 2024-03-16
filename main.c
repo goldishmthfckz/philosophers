@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/16 16:32:00 by estegana          #+#    #+#             */
+/*   Updated: 2024/03/16 16:59:52 by estegana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	*threadprocess()
@@ -5,18 +17,33 @@ void	*threadprocess()
 	printf("entree dans le premier thread\n");
 	pthread_exit(EXIT_SUCCESS);
 }
+void	initphilo(int ac, char **av, t_philo *philo)
+{
+	(void)ac;
+	philo->nb = ft_atoi(av[1]);
+	philo->die = ft_atoi(av[2]);
+	philo->eat = ft_atoi(av[3]);
+	philo->sleep = ft_atoi(av[4]);
+}
+
+void	createninitmutex(t_philo *philo)
+{
+
+}
 
 int main(int ac, char **av)
 {
-	pthread_t thread1;
+	//pthread_t thread1;
+	t_philo	*philo;
 
-	(void)av;
-	if (ac < 5 || ac > 6)
-		printf("enter the 4 following arguments:\nnumber_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
+	if (!parsing(ac, av))
+		return (1);
 	else
 	{
-		pthread_create(&thread1, NULL, threadprocess, NULL);
-		printf("thread cree\n");
+		philo = malloc(sizeof(philo));
+		initphilo(ac, av, philo);
+		createninitmutex();
 	}
+	free(philo);
 	return (0);
 }

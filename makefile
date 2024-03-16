@@ -8,6 +8,9 @@ DFLAG = -g3
 
 ##fichiers sources
 SRCS = main.c \
+	parsing.c \
+	process.c \
+	utils.c \
 
 OBJS = $(SRCS:.c=.o)
 
