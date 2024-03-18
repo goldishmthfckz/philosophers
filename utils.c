@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:41:46 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/16 16:37:04 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/18 18:58:28 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,26 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-//void	ft_free(t_philo *philo)
-//{
+void	ft_destroy(t_program *prgrm, pthread_mutex_t *forks)
+{
+	int	i;
 
-//}
+	pthread_mutex_destroy(&prgrm->lockwrite);
+	pthread_mutex_destroy(&prgrm->lockmeal);
+	pthread_mutex_destroy(&prgrm->lockdead);
+	i = 0;
+	while (i < prgrm->philos[0].nbphilos)
+	{
+		pthread_mutex_destroy(&forks[i]);
+		i++;
+	}
+}
+
+int	t_current(void)
+{
+	struct timeval t;
+
+	if(gettimeofday(&t, NULL) == -1)
+		printf("gettimeofday() erreur\n");
+	return (t.tv_sec * 1000 + t.tv_usec / 1000);
+}

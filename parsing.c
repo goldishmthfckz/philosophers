@@ -6,26 +6,30 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:38:33 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/16 16:36:55 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/18 18:41:35 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//si mauvais nb d'args (4 ou 5) = erreur
-//si bon nb d'args
-//>si pas d'entiers naturels = erreur
-//>sinon, init *philo ac les args
+//1. si mauvais nb d'args (4 ou 5) = 0 direct
+//2. si bon nb d'args:
+//2. a. si pas d'entiers naturels = 0
+//2. b. sinon = 1
 int	parsing(int ac, char **av)
 {
 	if (ac < 5 || ac > 6)
 	{
 		printf("enter 4 (or 5) arguments:\n");
-		printf("number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
+		printf("number_of_philosophers");
+		printf(" time_to_die time_to_eat");
+		printf(" time_to_sleep");
+		printf(" [number_of_times_each_philosopher_must_eat]\n");
 	}
 	else
 	{
-		if ((ft_atoi(av[1]) < 0) || (ft_atoi(av[2]) < 0) || (ft_atoi(av[3]) < 0)|| (ft_atoi(av[4]) < 0))
+		if ((ft_atoi(av[1]) < 0) || (ft_atoi(av[2]) < 0)
+			|| (ft_atoi(av[3]) < 0) || (ft_atoi(av[4]) < 0))
 			printf("enter only unsigned integers\n");
 		else
 			return (1);
