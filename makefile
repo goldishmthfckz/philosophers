@@ -7,9 +7,10 @@ CFLAGS = -Wall -Werror -Wextra
 DFLAG = -g3
 
 ##fichiers sources
-SRCS = main.c \
-	parsing.c \
-	process.c \
+SRCS = 0main.c \
+	1parsing.c \
+	2init.c \
+	3threads.c \
 	utils.c \
 
 OBJS = $(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 17:40:45 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/18 18:58:57 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:28:56 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <string.h>//memset
 # include <pthread.h>//pthread_create, detach, join
 //mutex_init, destroy, lock, unlock
-#include <sys/time.h>//gettimeofday
+# include <sys/time.h>//gettimeofday
 
 typedef struct s_philo
 {
@@ -51,8 +51,17 @@ typedef struct s_program
 	int	deadflag;//if = 1, philo routine (which is a loop) stops
 }				t_program;
 
-//parsing
+//------------------ 1 PARSING -----------------
 int		parsing(int ac, char **av);
+
+//--------------- 2 INITIALISATION -------------
+void	initprogram(t_program *prgrm, t_philo *philos);
+void	initforks(pthread_mutex_t *forks, int nbphilos);
+void	initphilos(t_philo *philos, t_program *prgrm, pthread_mutex_t *forks, char **av);
+void	initinput(t_philo *philos, char **av);
+
+//---------------- 3 THREADS --------------------
+int		createthreads(t_program *prgrm, pthread_mutex_t *forks);
 
 //utils
 int		ft_atoi(const char *str);
