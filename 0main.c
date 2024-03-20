@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 16:32:00 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/19 16:55:15 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:36:40 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 // 2 INITIALISATON a. prgrm, b. forks, c. philos
 // 3 CREATION THREAD
 // 4 DETRUIRE = free
-int	main(int ac, char **av)
+int main(int ac, char **av)
 {
-	t_philo			philos[500];
+	static t_philo	philos[501];
 	t_program		prgrm;
-	pthread_mutex_t	forks[500];
+	pthread_mutex_t	forks[501];
 
 	if (!parsing(ac, av))
 		return (1);
 	else
 	{
+		initphilos(philos, &prgrm, forks, av);
 		initprogram(&prgrm, philos);
 		initforks(forks, ft_atoi(av[1]));
-		initphilos(philos, &prgrm, forks, av);
 		createthreads(&prgrm, forks);
 		ft_destroy(&prgrm, forks);
 	}

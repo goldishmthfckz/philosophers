@@ -17,7 +17,7 @@ OBJS = $(SRCS:.c=.o)
 
 ##les fichiers obj prennent le nom des fichiers sources "*.c"
 %.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	$(CC) $(CFLAGS) $(DFLAG) -c $< -o $(<:.c=.o)
 
 ${NAME}: ${OBJS}
 	$(CC) $(CFLAGS) $(DFLAG) $(OBJS) -o $(NAME)
@@ -29,6 +29,9 @@ clean :
 
 fclean : clean
 	rm -rf $(NAME)
+
+test : re
+	valgrind --tool=helgrind ./philo 5 200 20 20
 
 norm:
 	norminette $(SRCS)

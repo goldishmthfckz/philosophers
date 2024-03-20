@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:41:46 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/19 18:25:35 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:15:59 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,6 @@ void	ft_destroy(t_program *prgrm, pthread_mutex_t *forks)
 	}
 }
 
-int	t_current(void)
-{
-	struct timeval	t;
-
-	if (gettimeofday(&t, NULL) == -1)
-		printf("gettimeofday() erreur\n");
-	return (t.tv_sec * 1000 + t.tv_usec / 1000);
-}
-
 void	ft_usleep(size_t ms)
 {
 	size_t	start;
@@ -69,7 +60,6 @@ void	ft_usleep(size_t ms)
 	start = t_current();
 	while ((t_current() - start) < ms)
 		usleep(500);
-	return (0);
 }
 
 size_t	t_current()

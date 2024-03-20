@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:54:46 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/19 17:38:34 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:37:59 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	initprogram(t_program *prgrm, t_philo *philos)
 	pthread_mutex_init(&prgrm->lockwrite, NULL);
 	pthread_mutex_init(&prgrm->lockdead, NULL);
 	pthread_mutex_init(&prgrm->lockmeal, NULL);
+	printf("init program faite\n");
 }
 
 //-------------- 2b INITIALISATION forks -------------
@@ -43,12 +44,12 @@ void	initphilos(t_philo *philos, t_program *prgrm,
 	int	i;
 
 	i = 0;
-	while (i < ft_atoi(av[1]))
+	while (i < ft_atoi(av[1]) && i < 500)
 	{
 		philos[i].id = i + 1;
 		philos[i].eating = 0;
 		philos[i].eaten = 0;
-		initinput(&philos[i], av);
+		initinput(av, &philos[i]);
 		philos[i].t_start = t_current();
 		philos[i].lastmeal = t_current();
 		philos[i].lockwrite = &prgrm->lockwrite;
@@ -62,9 +63,10 @@ void	initphilos(t_philo *philos, t_program *prgrm,
 			philos[i].forkr = &forks[i - 1];
 		i++;
 	}
+	printf("init philos faite\n");
 }
 
-void	initinput(t_philo *philos, char **av)
+void	initinput(char **av, t_philo *philos)
 {
 	philos->t_die = ft_atoi(av[2]);
 	philos->t_eat = ft_atoi(av[3]);
@@ -74,4 +76,5 @@ void	initinput(t_philo *philos, char **av)
 		philos->nbeattimes = ft_atoi(av[5]);
 	else
 		philos->nbeattimes = -1;
+	printf("init de chaque philo faite (attributions des av)\n");
 }
