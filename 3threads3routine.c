@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   0main.c                                            :+:      :+:    :+:   */
+/*   3threads3routine.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 16:32:00 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/22 18:28:56 by estegana         ###   ########.fr       */
+/*   Created: 2024/03/22 12:27:52 by estegana          #+#    #+#             */
+/*   Updated: 2024/03/22 18:27:26 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// 1 PARSING
-// 2 INITIALISATON a. prgrm, b. forks, c. philos
-// 3 CREATION THREAD
-// 4 DETRUIRE = free
-int main(int ac, char **av)
+void	*routine(void *philos)
 {
-	static t_philo	philos[200];
-	t_prgrm			prgrm;
-	pthread_mutex_t	forks[200];
-
-	if (!parsing(ac, av))
-		return (1);
-	else
-	{
-		initprgrm(&prgrm, av);
-		initmutex(forks, ft_atoi(av[1]));
-		initphilos(&prgrm, philos);
-		createthreads(&prgrm, forks);
-		ft_destroy(&prgrm, forks);
-	}
-	return (0);
+	t_philo	*tmp;
+	tmp = (t_philo *)philos;
+	printf("ok routine\n");
+	tmp+=0;
+	return NULL;
 }

@@ -11,6 +11,8 @@ SRCS = 0main.c \
 	1parsing.c \
 	2init.c \
 	3threads.c \
+	3threads2monitor.c \
+	3threads3routine.c \
 	utils.c \
 
 OBJS = $(SRCS:.c=.o)
