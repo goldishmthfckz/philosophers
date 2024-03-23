@@ -33,7 +33,7 @@ fclean : clean
 	rm -rf $(NAME)
 
 test : re
-	valgrind --tool=helgrind ./philo 5 200 20 20
+	valgrind --tool=helgrind ./philo 5 200 20 20 3
 
 norm:
 	norminette $(SRCS)
