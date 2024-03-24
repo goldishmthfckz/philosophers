@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:54:46 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/23 19:33:13 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/24 19:21:24 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	initprgrm(t_prgrm *prgrm, char **av)
 	else
 		prgrm->musteat = -1;
 	gettimeofday(&prgrm->t_init, NULL);
-	prgrm->flag_death = 0;
+	prgrm->deadflag = 0;
 	printf("init de chaque philo faite (attributions des av)\n");
 }
 
@@ -56,7 +56,7 @@ void	initphilos(t_prgrm *prgrm, t_philo *philos)
 	prgrm->philos = malloc(sizeof(t_philo) * prgrm->totalphilos);
 	memset(prgrm->philos, 0, sizeof(t_philo) * prgrm->totalphilos);
 	pthread_mutex_init(&prgrm->printf_mutex, NULL);
-	pthread_mutex_init(&prgrm->flag_mutex, NULL);
+	pthread_mutex_init(&prgrm->mutexdeath, NULL);
 	while (i < prgrm->totalphilos)
 	{
 		pthread_mutex_init(&prgrm->forks[i], NULL);
@@ -66,11 +66,12 @@ void	initphilos(t_prgrm *prgrm, t_philo *philos)
 		philos[i].forkr = i;
 		philos[i].forkl = (i + 1) % prgrm->totalphilos;
 		philos[i].prgrm = prgrm;
-		prgrm->philos[i].last_meal = prgrm->t_init;
+		prgrm->philos[i].t_lastmeal = prgrm->t_init;
 		if (prgrm->musteat != -1)
 			philos[i].mealsgoal = prgrm->musteat;
 		i++;
 		printf("+1\n");
 	}
 	printf("init philos faite\n");
+	//printf("id du premier philo : %d\n", philos->id);
 }

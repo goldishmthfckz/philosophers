@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 17:40:45 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/23 19:37:10 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/24 19:14:13 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 typedef struct s_philo
 {
-	pthread_t		thread;//thread ac routine a join
+	pthread_t		threadroutine;//thread ac routine a join
 	int				id;//kel philo?
 	int				forkr;
 	int				forkl;
@@ -32,7 +32,7 @@ typedef struct s_philo
 	int				dead;//0 si alive, 1 si mort
 	pthread_mutex_t	mutexeat;
 	struct s_prgrm	*prgrm;
-	struct timeval	last_meal;
+	struct timeval	t_lastmeal;
 }				t_philo;
 
 typedef struct s_prgrm
@@ -44,9 +44,9 @@ typedef struct s_prgrm
 	int				t_sleep;//tps pr dodo (av4)
 	int				musteat;//**optional** nb de fois a graille avant fin de programme (av5)
 	pthread_mutex_t	printf_mutex;
-	pthread_mutex_t	flag_mutex;
+	pthread_mutex_t	mutexdeath;
 	pthread_mutex_t	mutexeat;
-	int				flag_death;
+	int				deadflag;//1 si un philo dead
 	pthread_mutex_t	*forks;
 	struct timeval	t_init;
 }				t_prgrm;
@@ -63,18 +63,9 @@ void	initphilos(t_prgrm *prgrm, t_philo *philos);
 void	*routine(void *philos);
 int		createthreads(t_prgrm *prgrm);
 void	*monitor(void *prgrm);
-int	check_meals(t_prgrm *prgrm, t_philo *philos);
-int	check_death(t_prgrm *prgrm, t_philo *philos);
-void	ft_unlock(t_philo *philo, t_prgrm *data);
-void	ft_print(t_prgrm *data, t_philo *philo, char *act);
 
 //utils
 int		ft_atoi(const char *str);
 void	ft_destroy(t_prgrm *prgrm, pthread_mutex_t *forks);
-int	ft_check_flag(t_prgrm *data);
-long int	get_actual_time(void);
-void	my_usleep(unsigned int time_to_wait);
-int	take_forks(t_philo *philo, t_prgrm *data);
-void	give_forks(t_philo *philo, t_prgrm *data);
 
 #endif
