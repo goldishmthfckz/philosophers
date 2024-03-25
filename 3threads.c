@@ -6,17 +6,30 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:26:04 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/25 17:48:29 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:41:24 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 //-------------------- routine --------------------
-void	*routine(void *arg)
+void	*routine(void *philo)
 {
-	(void)arg;
-	printf("entree ds la routine de chaque philo\n");
+	t_philo	*tmp;
+
+	tmp = (t_philo *)philo;
+	printf("3b ROUTINES\n");
+	while (1)
+	{
+		if (!eating(tmp))
+			break ;
+		ft_write("is sleeping", tmp, tmp->prgrm);
+		ft_wait(tmp->prgrm->t_sleep);
+		if (!checkmutexdeath(tmp->prgrm))
+			return NULL;
+		ft_write("is thinking", tmp, tmp->prgrm);
+		ft_wait(((tmp->prgrm->t_die - (tmp->prgrm->t_eat + tmp->prgrm->t_sleep)) / 2));
+	}
 	return (NULL);
 }
 
@@ -31,15 +44,17 @@ void	*monitor(void *prgrm)
 
 	tmp = (t_prgrm *)prgrm;
 	i = 0;
+	printf("3a MONITOR\n");
 	while (i < tmp->totalphilos)
 	{
-		//if (checkmeals(tmp, tmp->philos))
-		//	return NULL;
+		if (!checkmeals(tmp, tmp->philos))
+			return NULL;
 		if (!checkdeath(tmp, &tmp->philos[i]))
 			return NULL;
 		i++;
 		if (i == tmp->totalphilos)
 			i = 0;
+		ft_wait(1);
 	}
 	return (NULL);
 }
@@ -54,7 +69,7 @@ int	createthreads(t_prgrm *prgrm)
 	int	i;
 
 	i = 0;
-	printf("entree ds la creation des threads\n");
+	printf("3 THREADS\n");
 	while (i < prgrm->totalphilos)
 	{
 		if (pthread_create(&prgrm->philos[i].threadroutine, NULL, routine, &prgrm->philos[i]))

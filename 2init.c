@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:54:46 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/25 18:01:50 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:12:46 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	initprgrm(t_prgrm *prgrm, char **av)
 		prgrm->musteat = -1;
 	gettimeofday(&prgrm->t_init, NULL);
 	prgrm->deadflag = 0;
-	printf("init de chaque philo faite (attributions des av)\n");
+	printf("2a INIT PRGRM\n");
 }
 
 //-------------- 2b INITIALISATION forks -------------
@@ -42,7 +42,7 @@ void	initmutex(pthread_mutex_t *forks, int totalphilos)
 		pthread_mutex_init(&forks[i], NULL);
 		i++;
 	}
-	printf("init mutex fait\n");
+	printf("2b INIT MUTEXs\n");
 }
 
 //--------------- 2c INITIALISATION philos --------------
@@ -70,8 +70,7 @@ void	initphilos(t_prgrm *prgrm, t_philo *philos)
 		if (prgrm->musteat != -1)
 			philos[i].mealsgoal = prgrm->musteat;
 		i++;
-		printf("+1\n");
 	}
-	printf("init philos faite\n");
+	printf("2c INIT PHILOS\n");
 	//printf("id du premier philo : %d\n", philos->id);
 }

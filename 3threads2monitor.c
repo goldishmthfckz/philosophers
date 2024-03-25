@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 12:27:40 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/25 18:00:47 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:07:10 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	checkdeath(t_prgrm *prgrm, t_philo *philo)
 	pthread_mutex_unlock(&philo->mutexeat);
 	if (d > prgrm->t_die)
 	{
-		printf("%d died\n", philo->dead);
+		ft_write("died", philo, prgrm);
 		pthread_mutex_lock(&prgrm->mutexdeath);
 		prgrm->deadflag = 1;
 		pthread_mutex_unlock(&prgrm->mutexdeath);

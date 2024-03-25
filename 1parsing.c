@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:26:13 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/19 17:26:15 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:13:23 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 //	.sinon = 1
 int	parsing(int ac, char **av)
 {
+	printf("1 PARSING\n");
 	if (ac < 5 || ac > 6)
 	{
 		printf("enter 4 (or 5) arguments:\n");

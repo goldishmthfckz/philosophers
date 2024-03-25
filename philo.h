@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 17:40:45 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/25 18:02:20 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:38:16 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ int			checkmeals(t_prgrm *prgrm, t_philo *philos);
 int			checkdeath(t_prgrm *prgrm, t_philo *philo);
 
 //----------------- 3 routine -------------------
+void		ft_wait(int t_wait);
+int			prendfourchettes(t_philo *philo, t_prgrm *prgrm);
+void		remetfourchettes(t_philo *philo, t_prgrm *prgrm);
+int			eating(t_philo *philo);
 
 //utils
 int			ft_atoi(const char *str);
