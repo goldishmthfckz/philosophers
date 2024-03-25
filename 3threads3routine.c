@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 12:27:52 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/25 18:44:32 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:46:53 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	eating(t_philo *philo)
 	gettimeofday(&philo->t_lastmeal, NULL);
 	philo->mealsgoal--;
 	pthread_mutex_unlock(&philo->mutexeat);
-	//sleep
+	ft_wait(philo->prgrm->t_eat);
 	remetfourchettes(philo, philo->prgrm);
 	return (1);
 }
