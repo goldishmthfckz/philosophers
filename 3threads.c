@@ -6,11 +6,43 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:26:04 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/24 19:27:51 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:48:29 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+//-------------------- routine --------------------
+void	*routine(void *arg)
+{
+	(void)arg;
+	printf("entree ds la routine de chaque philo\n");
+	return (NULL);
+}
+
+//---------------------- monitor --------------------
+//verifie qu'aucune condition d'arret n'est atteint;
+//either aucun philo n'est mort
+//nor au moins 1 a 1 repas restant a graille
+void	*monitor(void *prgrm)
+{
+	t_prgrm	*tmp;
+	int	i;
+
+	tmp = (t_prgrm *)prgrm;
+	i = 0;
+	while (i < tmp->totalphilos)
+	{
+		//if (checkmeals(tmp, tmp->philos))
+		//	return NULL;
+		if (!checkdeath(tmp, &tmp->philos[i]))
+			return NULL;
+		i++;
+		if (i == tmp->totalphilos)
+			i = 0;
+	}
+	return (NULL);
+}
 
 //----------------- 3 CREATION THREADS ----------------
 //threadmonitor : boucle constante qui verifie l'etat du prgrm

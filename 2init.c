@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:54:46 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/24 19:21:24 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:01:50 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	initphilos(t_prgrm *prgrm, t_philo *philos)
 	prgrm->forks = malloc(sizeof(pthread_mutex_t) * prgrm->totalphilos);
 	prgrm->philos = malloc(sizeof(t_philo) * prgrm->totalphilos);
 	memset(prgrm->philos, 0, sizeof(t_philo) * prgrm->totalphilos);
-	pthread_mutex_init(&prgrm->printf_mutex, NULL);
+	pthread_mutex_init(&prgrm->mutexwrite, NULL);
 	pthread_mutex_init(&prgrm->mutexdeath, NULL);
 	while (i < prgrm->totalphilos)
 	{
