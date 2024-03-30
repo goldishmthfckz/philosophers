@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 17:40:45 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/25 18:38:16 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/30 19:28:00 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ typedef struct s_philo
 {
 	pthread_t		threadroutine;//thread ac routine a join
 	int				id;//kel philo?
-	int				forkr;
-	int				forkl;
+	int				fourchetted;
+	int				fourchetteg;
 	int				mealsgoal;//cb de meals doit graille
 	int				dead;//0 si alive, 1 si mort
 	pthread_mutex_t	mutexeat;
@@ -47,7 +47,7 @@ typedef struct s_prgrm
 	pthread_mutex_t	mutexdeath;
 	pthread_mutex_t	mutexeat;
 	int				deadflag;//1 si un philo dead
-	pthread_mutex_t	*forks;
+	pthread_mutex_t	*fourchettes;
 	struct timeval	t_init;
 }				t_prgrm;
 
@@ -56,13 +56,12 @@ int			parsing(int ac, char **av);
 
 //--------------- 2 INITIALISATION -------------
 void		initprgrm(t_prgrm *prgrm, char **av);
-void		initmutex(pthread_mutex_t *forks, int nbphilos);
-void		initphilos(t_prgrm *prgrm, t_philo *philos);
+int			initphilos(t_prgrm *prgrm);
 
 //---------------- 3 THREADS --------------------
-void		*routine(void *philos);
 int			createthreads(t_prgrm *prgrm);
-void		*monitor(void *prgrm);
+void		*routine(void *i_philo);
+void		*monitor(void *i_prgrm);
 
 //----------------- 3 monitor -------------------
 int			checkmeals(t_prgrm *prgrm, t_philo *philos);
@@ -77,8 +76,8 @@ int			eating(t_philo *philo);
 //utils
 int			ft_atoi(const char *str);
 long int	ft_time();
-void		ft_write(char *str, t_philo *philos, t_prgrm *prgrm);
+void		ft_write(t_prgrm *prgrm, t_philo *philos, char *str);
 int			checkmutexdeath(t_prgrm *prgrm);
-void		ft_destroy(t_prgrm *prgrm, pthread_mutex_t *forks);
+void		ft_destroy(t_prgrm *prgrm);
 
 #endif

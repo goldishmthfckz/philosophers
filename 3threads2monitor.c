@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 12:27:40 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/25 18:07:10 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/30 19:29:22 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ int	checkmeals(t_prgrm *prgrm, t_philo *philos)
 //sinn renvoie 1
 int	checkdeath(t_prgrm *prgrm, t_philo *philo)
 {
-	struct timeval t;
-	int	d;
+	struct timeval	t;
+	int				d;
 
 	gettimeofday(&t, NULL);
 	pthread_mutex_lock(&philo->mutexeat);
 	d = ((t.tv_sec * 1000000 + t.tv_usec) - (philo->t_lastmeal.tv_sec * 1000000 +
-		philo->t_lastmeal.tv_usec));
+		philo->t_lastmeal.tv_usec)) / 1000;
 	pthread_mutex_unlock(&philo->mutexeat);
-	if (d > prgrm->t_die)
+	if (d >= prgrm->t_die)
 	{
-		ft_write("died", philo, prgrm);
+		ft_write(prgrm, philo, "died");
 		pthread_mutex_lock(&prgrm->mutexdeath);
 		prgrm->deadflag = 1;
 		pthread_mutex_unlock(&prgrm->mutexdeath);

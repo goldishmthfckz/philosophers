@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:26:13 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/25 18:13:23 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/30 16:34:05 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 //	.sinon = 1
 int	parsing(int ac, char **av)
 {
-	printf("1 PARSING\n");
 	if (ac < 5 || ac > 6)
 	{
 		printf("enter 4 (or 5) arguments:\n");
@@ -33,6 +32,8 @@ int	parsing(int ac, char **av)
 		if ((ft_atoi(av[1]) < 0) || (ft_atoi(av[2]) < 0)
 			|| (ft_atoi(av[3]) < 0) || (ft_atoi(av[4]) < 0))
 			printf("enter only unsigned integers\n");
+		else if (ft_atoi(av[1]) == 0)
+			printf("error : no philosopher\n");
 		else
 			return (1);
 	}

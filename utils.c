@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:41:46 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/25 17:43:34 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/30 19:32:33 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ long int	ft_time()
 }
 
 //VEROUILLE mutexwrite, printf, puis DEVEROUILLE
-void	ft_write(char *str, t_philo *philos, t_prgrm *prgrm)
+void	ft_write(t_prgrm *prgrm, t_philo *philos, char *str)
 {
 	struct timeval	t;
 	int				d;
@@ -72,14 +72,19 @@ int	checkmutexdeath(t_prgrm *prgrm)
 	return (1);
 }
 
-void	ft_destroy(t_prgrm *prgrm, pthread_mutex_t *forks)
+void	ft_destroy(t_prgrm *prgrm)
 {
 	int	i;
 
 	i = 0;
 	while (i < prgrm->totalphilos)
 	{
-		pthread_mutex_destroy(&forks[i]);
+		pthread_mutex_destroy(&prgrm->fourchettes[i]);
+		pthread_mutex_destroy(&prgrm->philos[i].mutexeat);
 		i++;
 	}
+	pthread_mutex_destroy(&prgrm->mutexwrite);
+	pthread_mutex_destroy(&prgrm->mutexdeath);
+	free(prgrm->fourchettes);
+	free(prgrm->philos);
 }

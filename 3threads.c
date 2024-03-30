@@ -6,53 +6,52 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:26:04 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/25 18:41:24 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/30 19:31:30 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 //-------------------- routine --------------------
-void	*routine(void *philo)
+void	*routine(void *i_philo)
 {
-	t_philo	*tmp;
+	t_philo	*philo;
 
-	tmp = (t_philo *)philo;
-	printf("3b ROUTINES\n");
+	philo = (t_philo *)i_philo;
 	while (1)
 	{
-		if (!eating(tmp))
+		if (!eating(philo))
 			break ;
-		ft_write("is sleeping", tmp, tmp->prgrm);
-		ft_wait(tmp->prgrm->t_sleep);
-		if (!checkmutexdeath(tmp->prgrm))
-			return NULL;
-		ft_write("is thinking", tmp, tmp->prgrm);
-		ft_wait(((tmp->prgrm->t_die - (tmp->prgrm->t_eat + tmp->prgrm->t_sleep)) / 2));
+		ft_write(philo->prgrm, philo, "is sleeping");
+		ft_wait(philo->prgrm->t_sleep);
+		if (!checkmutexdeath(philo->prgrm))
+			return (NULL);
+		ft_write(philo->prgrm, philo, "is thinking");
+		ft_wait(((philo->prgrm->t_die - (philo->prgrm->t_eat
+			+ philo->prgrm->t_sleep)) / 2));
 	}
 	return (NULL);
 }
 
 //---------------------- monitor --------------------
-//verifie qu'aucune condition d'arret n'est atteint;
+//verifie qu'aucune condition d'arret n'est atteinte;
 //either aucun philo n'est mort
 //nor au moins 1 a 1 repas restant a graille
-void	*monitor(void *prgrm)
+void	*monitor(void *i_prgrm)
 {
-	t_prgrm	*tmp;
-	int	i;
+	t_prgrm	*prgrm;
+	int		i;
 
-	tmp = (t_prgrm *)prgrm;
 	i = 0;
-	printf("3a MONITOR\n");
-	while (i < tmp->totalphilos)
+	prgrm = (t_prgrm *)i_prgrm;
+	while (i < prgrm->totalphilos)
 	{
-		if (!checkmeals(tmp, tmp->philos))
-			return NULL;
-		if (!checkdeath(tmp, &tmp->philos[i]))
-			return NULL;
+		if (!checkmeals(prgrm, prgrm->philos))
+			return (NULL);
+		if (!checkdeath(prgrm, &prgrm->philos[i]))
+			return (NULL);
 		i++;
-		if (i == tmp->totalphilos)
+		if (i == prgrm->totalphilos)
 			i = 0;
 		ft_wait(1);
 	}
@@ -66,13 +65,13 @@ void	*monitor(void *prgrm)
 int	createthreads(t_prgrm *prgrm)
 {
 	pthread_t	threadmonitor;
-	int	i;
+	int			i;
 
 	i = 0;
-	printf("3 THREADS\n");
 	while (i < prgrm->totalphilos)
 	{
-		if (pthread_create(&prgrm->philos[i].threadroutine, NULL, routine, &prgrm->philos[i]))
+		if (pthread_create(&prgrm->philos[i].threadroutine,
+				NULL, routine, &prgrm->philos[i]))
 			return (0);
 		i++;
 	}

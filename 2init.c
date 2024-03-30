@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:54:46 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/25 18:12:46 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/30 19:21:27 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,50 +27,35 @@ void	initprgrm(t_prgrm *prgrm, char **av)
 		prgrm->musteat = -1;
 	gettimeofday(&prgrm->t_init, NULL);
 	prgrm->deadflag = 0;
-	printf("2a INIT PRGRM\n");
 }
 
-//-------------- 2b INITIALISATION forks -------------
-//initialise autant de mutex qu'il y a de philos
-void	initmutex(pthread_mutex_t *forks, int totalphilos)
-{
-	int	i;
-
-	i = 0;
-	while (i < totalphilos)
-	{
-		pthread_mutex_init(&forks[i], NULL);
-		i++;
-	}
-	printf("2b INIT MUTEXs\n");
-}
-
-//--------------- 2c INITIALISATION philos --------------
+//--------------- 2b INITIALISATION philos --------------
 //initialise les compteurs a 0 pr chaque philo
-void	initphilos(t_prgrm *prgrm, t_philo *philos)
+int	initphilos(t_prgrm *prgrm)
 {
 	int	i;
 
 	i = 0;
-	prgrm->forks = malloc(sizeof(pthread_mutex_t) * prgrm->totalphilos);
+	prgrm->fourchettes = malloc(sizeof(pthread_mutex_t) * prgrm->totalphilos);
 	prgrm->philos = malloc(sizeof(t_philo) * prgrm->totalphilos);
+	if (!prgrm->fourchettes || !prgrm->philos)
+		return (0);
 	memset(prgrm->philos, 0, sizeof(t_philo) * prgrm->totalphilos);
 	pthread_mutex_init(&prgrm->mutexwrite, NULL);
 	pthread_mutex_init(&prgrm->mutexdeath, NULL);
 	while (i < prgrm->totalphilos)
 	{
-		pthread_mutex_init(&prgrm->forks[i], NULL);
+		pthread_mutex_init(&prgrm->fourchettes[i], NULL);
 		pthread_mutex_init(&prgrm->philos[i].mutexeat, NULL);
-		philos[i].id = i + 1;
-		philos[i].dead = 0;
-		philos[i].forkr = i;
-		philos[i].forkl = (i + 1) % prgrm->totalphilos;
-		philos[i].prgrm = prgrm;
+		prgrm->philos[i].id = i + 1;
+		prgrm->philos[i].prgrm = prgrm;
+		prgrm->philos[i].fourchetted = i;
+		prgrm->philos[i].fourchetteg = (i + 1) % prgrm->totalphilos;
 		prgrm->philos[i].t_lastmeal = prgrm->t_init;
+		//prgrm->philos[i].dead = 0;
 		if (prgrm->musteat != -1)
-			philos[i].mealsgoal = prgrm->musteat;
+			prgrm->philos[i].mealsgoal = prgrm->musteat;
 		i++;
 	}
-	printf("2c INIT PHILOS\n");
-	//printf("id du premier philo : %d\n", philos->id);
+	return (createthreads(prgrm));
 }
