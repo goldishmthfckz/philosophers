@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:54:46 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/30 19:21:27 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/31 16:06:13 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	initphilos(t_prgrm *prgrm)
 		prgrm->philos[i].fourchetted = i;
 		prgrm->philos[i].fourchetteg = (i + 1) % prgrm->totalphilos;
 		prgrm->philos[i].t_lastmeal = prgrm->t_init;
-		//prgrm->philos[i].dead = 0;
 		if (prgrm->musteat != -1)
 			prgrm->philos[i].mealsgoal = prgrm->musteat;
 		i++;

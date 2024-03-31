@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:26:04 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/30 19:31:30 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/31 16:08:12 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*routine(void *i_philo)
 			return (NULL);
 		ft_write(philo->prgrm, philo, "is thinking");
 		ft_wait(((philo->prgrm->t_die - (philo->prgrm->t_eat
-			+ philo->prgrm->t_sleep)) / 2));
+						+ philo->prgrm->t_sleep)) / 2));
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 12:27:52 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/30 19:28:54 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/31 16:09:49 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	prendfourchettes(t_philo *philo, t_prgrm *prgrm)
 		pthread_mutex_lock(&prgrm->fourchettes[philo->fourchetteg]);
 	ft_write(prgrm, philo, "took a fork");
 	if (philo->fourchetted == philo->fourchetteg)
-		return (pthread_mutex_unlock(&prgrm->fourchettes[philo->fourchetteg]), 1);
+		return (pthread_mutex_unlock(&prgrm->fourchettes[philo->fourchetteg]
+			), 1);
 	if (philo->id % 2 == 0)
 		pthread_mutex_lock(&prgrm->fourchettes[philo->fourchetteg]);
 	else

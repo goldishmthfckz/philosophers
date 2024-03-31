@@ -36,6 +36,6 @@ test : re
 	valgrind --tool=helgrind ./philo 5 200 20 20 3
 
 norm:
-	norminette $(SRCS)
+	norminette
 
 re : fclean all

@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 12:27:40 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/30 19:29:22 by estegana         ###   ########.fr       */
+/*   Updated: 2024/03/31 16:09:03 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	checkdeath(t_prgrm *prgrm, t_philo *philo)
 
 	gettimeofday(&t, NULL);
 	pthread_mutex_lock(&philo->mutexeat);
-	d = ((t.tv_sec * 1000000 + t.tv_usec) - (philo->t_lastmeal.tv_sec * 1000000 +
-		philo->t_lastmeal.tv_usec)) / 1000;
+	d = ((t.tv_sec * 1000000 + t.tv_usec) - (philo->t_lastmeal.tv_sec
+				* 1000000 + philo->t_lastmeal.tv_usec)) / 1000;
 	pthread_mutex_unlock(&philo->mutexeat);
 	if (d >= prgrm->t_die)
 	{
