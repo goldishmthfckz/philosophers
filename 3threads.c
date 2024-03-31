@@ -80,7 +80,7 @@ int	createthreads(t_prgrm *prgrm)
 	i = 0;
 	while (i < prgrm->totalphilos)
 	{
-		pthread_join(prgrm->philos[i].id, NULL);
+		pthread_join(prgrm->philos[i].threadroutine, NULL);
 		i++;
 	}
 	pthread_join(threadmonitor, NULL);
