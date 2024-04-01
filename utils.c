@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:41:46 by estegana          #+#    #+#             */
-/*   Updated: 2024/04/01 14:12:38 by estegana         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:53:13 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	ft_write(t_prgrm *prgrm, t_philo *philos, char *str)
 	struct timeval	t;
 	int				d;
 
-	gettimeofday(&t, NULL);
 	pthread_mutex_lock(&prgrm->mutexwrite);
+	gettimeofday(&t, NULL);
 	d = ((t.tv_sec * 1000000 + t.tv_usec) - (prgrm->t_init.tv_sec
 				* 1000000 + prgrm->t_init.tv_usec)) / 1000;
 	if (checkmutexdeath(prgrm))
