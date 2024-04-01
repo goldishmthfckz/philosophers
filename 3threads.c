@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:26:04 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/31 16:08:12 by estegana         ###   ########.fr       */
+/*   Updated: 2024/04/01 14:12:09 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ void	*monitor(void *i_prgrm)
 
 	i = 0;
 	prgrm = (t_prgrm *)i_prgrm;
-	while (i < prgrm->totalphilos)
+	while (1)
 	{
 		if (!checkmeals(prgrm, prgrm->philos))
 			return (NULL);
-		if (!checkdeath(prgrm, &prgrm->philos[i]))
+		if (!checkdeath(prgrm, prgrm->philos))
 			return (NULL);
 		i++;
 		if (i == prgrm->totalphilos)
@@ -68,6 +68,8 @@ int	createthreads(t_prgrm *prgrm)
 	int			i;
 
 	i = 0;
+	if (pthread_create(&threadmonitor, NULL, monitor, prgrm))
+		return (0);
 	while (i < prgrm->totalphilos)
 	{
 		if (pthread_create(&prgrm->philos[i].threadroutine,
@@ -75,14 +77,12 @@ int	createthreads(t_prgrm *prgrm)
 			return (0);
 		i++;
 	}
-	if (pthread_create(&threadmonitor, NULL, monitor, prgrm))
-		return (0);
+	pthread_join(threadmonitor, NULL);
 	i = 0;
 	while (i < prgrm->totalphilos)
 	{
 		pthread_join(prgrm->philos[i].threadroutine, NULL);
 		i++;
 	}
-	pthread_join(threadmonitor, NULL);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 12:27:52 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/31 16:09:49 by estegana         ###   ########.fr       */
+/*   Updated: 2024/04/01 14:42:47 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	prendfourchettes(t_philo *philo, t_prgrm *prgrm)
 		pthread_mutex_lock(&prgrm->fourchettes[philo->fourchetted]);
 	else
 		pthread_mutex_lock(&prgrm->fourchettes[philo->fourchetteg]);
-	ft_write(prgrm, philo, "took a fork");
+	ft_write(prgrm, philo, "has taken a fork");
 	if (philo->fourchetted == philo->fourchetteg)
 		return (pthread_mutex_unlock(&prgrm->fourchettes[philo->fourchetteg]
 			), 1);
@@ -44,7 +44,7 @@ int	prendfourchettes(t_philo *philo, t_prgrm *prgrm)
 		pthread_mutex_lock(&prgrm->fourchettes[philo->fourchetteg]);
 	else
 		pthread_mutex_lock(&prgrm->fourchettes[philo->fourchetted]);
-	ft_write(prgrm, philo, "took a fork");
+	ft_write(prgrm, philo, "has taken a fork");
 	return (0);
 }
 
@@ -71,7 +71,8 @@ int	eating(t_philo *philo)
 	gettimeofday(&philo->t_lastmeal, NULL);
 	philo->mealsgoal--;
 	pthread_mutex_unlock(&philo->mutexeat);
-	ft_wait(philo->prgrm->t_eat);
+	if (checkmutexdeath(philo->prgrm))
+		ft_wait(philo->prgrm->t_eat);
 	remetfourchettes(philo, philo->prgrm);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: estegana <estegana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 12:27:40 by estegana          #+#    #+#             */
-/*   Updated: 2024/03/31 16:09:03 by estegana         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:26:09 by estegana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,25 @@ int	checkdeath(t_prgrm *prgrm, t_philo *philo)
 {
 	struct timeval	t;
 	int				d;
+	int				i;
 
-	gettimeofday(&t, NULL);
-	pthread_mutex_lock(&philo->mutexeat);
-	d = ((t.tv_sec * 1000000 + t.tv_usec) - (philo->t_lastmeal.tv_sec
-				* 1000000 + philo->t_lastmeal.tv_usec)) / 1000;
-	pthread_mutex_unlock(&philo->mutexeat);
-	if (d >= prgrm->t_die)
+	i = 0;
+	while (i < prgrm->totalphilos)
 	{
-		ft_write(prgrm, philo, "died");
-		pthread_mutex_lock(&prgrm->mutexdeath);
-		prgrm->deadflag = 1;
-		pthread_mutex_unlock(&prgrm->mutexdeath);
-		return (0);
+		gettimeofday(&t, NULL);
+		pthread_mutex_lock(&philo->mutexeat);
+		d = ((t.tv_sec * 1000000 + t.tv_usec) - (philo->t_lastmeal.tv_sec
+					* 1000000 + philo->t_lastmeal.tv_usec)) / 1000;
+		pthread_mutex_unlock(&philo->mutexeat);
+		if (d >= prgrm->t_die)
+		{
+			ft_write(prgrm, philo, "died");
+			pthread_mutex_lock(&prgrm->mutexdeath);
+			prgrm->deadflag = 1;
+			pthread_mutex_unlock(&prgrm->mutexdeath);
+			return (0);
+		}
+		i++;
 	}
 	return (1);
 }
